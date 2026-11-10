@@ -25,7 +25,7 @@ app.use(cors());
 app.use(express.json());
 
 // Firebase Admin Setup
-const serviceAccount = require("./serviceAccountKey.json");
+const serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT_PATH || "./serviceAccountKey.json");
 
 initializeApp({
   credential: cert(serviceAccount),
