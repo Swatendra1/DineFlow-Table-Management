@@ -48,7 +48,7 @@ function toast(msg){const e=document.getElementById('toast');e.textContent=msg;e
    if(!firebaseReady||!auth.currentUser) await ensureGuestAuth();
    if(selectedPayment==='Online (Razorpay)'){
      const token=await auth.currentUser.getIdToken(true);
-     const response=await fetch('http://localhost:5000/create-order',{
+     const response=await fetch('https://dineflow-table-management.onrender.com/create-order',{
        method:'POST',
        headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
       body: JSON.stringify({
@@ -85,7 +85,7 @@ function toast(msg){const e=document.getElementById('toast');e.textContent=msg;e
        handler:async function(paymentResult){
          try{
            const verifyToken=await auth.currentUser.getIdToken(true);
-           const verified=await fetch('http://localhost:5000/verify-payment',{
+           const verified=await fetch('https://dineflow-table-management.onrender.com/verify-payment',{
              method:'POST',
              headers:{'Content-Type':'application/json','Authorization':'Bearer '+verifyToken},
              body:JSON.stringify({...paymentResult,pendingId:data.pendingId})
