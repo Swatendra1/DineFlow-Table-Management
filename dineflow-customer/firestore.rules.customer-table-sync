@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isOwner() { return signedIn() && request.auth.token.email == 'owner@dineflow.com'; }
+    function isKitchen() { return signedIn() && request.auth.token.email == 'kitchen@dineflow.com'; }
+    function isWaiter() { return signedIn() && request.auth.token.email == 'waiter@dineflow.com'; }
+    function isStaff() { return isOwner() || isKitchen() || isWaiter(); }
+
+    match /menuItems/{itemId} {
+      allow read: if true;
+      allow create, update: if isOwner() && request.resource.data.restaurantId == 'dineflow-demo';
+      allow delete: if isOwner() && resource.data.restaurantId == 'dineflow-demo';
+    }
+
+    match /tables/{tableId} {
+      allow read: if true;
+      allow create, update: if isOwner() && request.resource.data.restaurantId == 'dineflow-demo';
+      allow delete: if isOwner() && resource.data.restaurantId == 'dineflow-demo';
+    }
+
+    match /orders/{orderId} {
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['id','restaurantId','table','guest','items','note','payment','subtotal','tax','total','status','statusLabel','createdAt','customerUid'])
+        && request.resource.data.keys().hasAll(['id','restaurantId','table','guest','items','total','status','createdAt','customerUid'])
+        && request.resource.data.customerUid == request.auth.uid
+        && request.resource.data.restaurantId == 'dineflow-demo'
+        && ( !exists(/databases/$(database)/documents/tables/$(request.resource.data.table))
+             || get(/databases/$(database)/documents/tables/$(request.resource.data.table)).data.reserved != true )
+        && request.resource.data.status == 0
+        && request.resource.data.items is list
+        && request.resource.data.items.size() > 0
+        && request.resource.data.items.size() <= 30
+        && request.resource.data.total is number
+        && request.resource.data.total >= 0
+        && request.resource.data.guest.name is string
+        && request.resource.data.guest.phone is string;
+
+      allow get, list: if isStaff() || (signedIn() && resource.data.customerUid == request.auth.uid);
+
+      allow update: if isOwner()
+        || (isKitchen()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','statusLabel','updatedAt'])
+          && request.resource.data.status == resource.data.status + 1
+          && request.resource.data.status <= 2)
+        || (isWaiter()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','statusLabel','updatedAt'])
+          && resource.data.status == 2
+          && request.resource.data.status == 3
+          && request.resource.data.statusLabel == 'Served');
+      allow delete: if isOwner();
+    }
+  }
+}

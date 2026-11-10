@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DineFlow · Kitchen Display</title>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<style>
+:root{--green:#174e3d;--green2:#103b2f;--mint:#e8f2eb;--cream:#f5f7f3;--ink:#1e2b24;--muted:#748078;--line:#e4eae4;--gold:#d7ad61;--red:#a83225}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink)}button,input{font:inherit}button{cursor:pointer}
+.hidden{display:none!important}
+header{background:linear-gradient(110deg,var(--green2),var(--green));color:#fff;padding:18px clamp(18px,4vw,42px);display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:76px}.brand{font-weight:900;font-size:25px;letter-spacing:-.7px}.brand .dot{color:var(--gold)}.brand small{font-size:13px;font-weight:600;letter-spacing:0}.header-right{display:flex;align-items:center;gap:12px}.status{font-size:12px;padding:8px 12px;border-radius:30px;background:#ffffff20;color:#fff}.logout{border:1px solid #ffffff50;background:#ffffff15;color:white;padding:9px 14px;border-radius:10px;font-weight:700}
+.login-shell{min-height:calc(100vh - 76px);display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,520px);gap:clamp(28px,6vw,90px);align-items:center;max-width:1180px;margin:auto;padding:56px 28px}.welcome h1{font-size:clamp(38px,5vw,58px);line-height:1.04;letter-spacing:-2px;margin:0 0 18px;color:var(--green2)}.welcome h1 span{color:#bd9147}.welcome p{font-size:17px;line-height:1.7;color:var(--muted);max-width:490px;margin:0}.feature-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.feature{background:#fff;border:1px solid var(--line);padding:10px 13px;border-radius:30px;color:#4f6257;font-size:13px;font-weight:700}.login-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(24px,4vw,38px);box-shadow:0 22px 65px #173d2b12}.eyebrow{font-size:11px;font-weight:900;letter-spacing:1.5px;color:#9b783e;text-transform:uppercase}.login-card h2{font-size:27px;letter-spacing:-.7px;margin:10px 0 8px}.sub{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 26px}.field{margin:17px 0}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:8px}.input-wrap{position:relative}.field input{width:100%;height:49px;border:1px solid #dce4dc;border-radius:11px;padding:0 14px;background:#fbfcfa;color:var(--ink);outline:none;transition:.2s}.field input:focus{border-color:#4d8b6f;box-shadow:0 0 0 3px #174e3d16;background:#fff}.password-input{padding-right:78px!important}.toggle-pass{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--green);font-size:12px;font-weight:800;padding:8px}.form-options{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 20px;font-size:12px;color:var(--muted)}.remember{display:flex;align-items:center;gap:7px}.remember input{accent-color:var(--green)}.text-btn{border:0;background:none;color:var(--green);font-weight:800;padding:0}.primary{width:100%;border:0;border-radius:12px;background:var(--green);color:#fff;padding:14px 18px;font-weight:900;box-shadow:0 8px 18px #174e3d22;transition:.2s}.primary:hover{background:var(--green2);transform:translateY(-1px)}.primary:disabled{opacity:.65;cursor:wait;transform:none}.error{display:none;background:#fff0ed;color:var(--red);padding:12px 14px;border-radius:10px;margin:14px 0 0;font-size:13px;line-height:1.5}.success{display:none;background:#eaf6ed;color:#21683b;padding:12px 14px;border-radius:10px;margin:14px 0 0;font-size:13px}.login-foot{font-size:11px;color:#8a958d;text-align:center;margin:20px 0 0}
+.wrap{max-width:1300px;margin:auto;padding:28px}.heading{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap}.heading h1{margin:0;font-size:30px;letter-spacing:-.8px}.muted{color:var(--muted)}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}.filters button,.action{border:0;border-radius:10px;padding:10px 15px;font-weight:800;cursor:pointer}.filters button{background:#fff;color:var(--green);border:1px solid var(--line)}.filters button.active,.action{background:var(--green);color:#fff}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:18px;box-shadow:0 8px 25px #1b3d2509}.top{display:flex;justify-content:space-between;gap:10px;align-items:start}.order{font-size:12px;font-weight:900;color:var(--green);letter-spacing:.5px;overflow-wrap:anywhere}.table{font-size:20px;font-weight:900;margin:5px 0}.pill{font-size:11px;font-weight:800;padding:6px 9px;border-radius:30px;background:#fff1d8;color:#946200}.pill.preparing{background:#e6efff;color:#2759a4}.pill.ready{background:#e1f5e7;color:#18703a}.pill.served{background:#eee;color:#555}.items{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin:13px 0}.item{display:flex;justify-content:space-between;gap:10px;margin:8px 0;font-size:14px}.note{background:#fff8e9;padding:10px;border-radius:9px;font-size:13px;margin:10px 0}.foot{display:flex;align-items:center;justify-content:space-between;gap:10px}.action:disabled{opacity:.4;cursor:not-allowed}.empty{padding:50px;text-align:center;background:white;border-radius:16px;color:var(--muted);grid-column:1/-1}.hint{font-size:12px;color:var(--muted);margin-top:20px}.error-wide{background:#fff0ed;color:#9c2e1d;padding:15px;border-radius:12px;margin:15px 0;font-size:13px;display:none}
+@media(max-width:800px){.login-shell{grid-template-columns:1fr;max-width:560px;padding:38px 20px}.welcome{text-align:center}.welcome p{margin:auto}.feature-list{justify-content:center}.welcome h1{font-size:42px}.wrap{padding:18px}.heading h1{font-size:24px}}
+@media(max-width:430px){header{padding:15px}.brand{font-size:21px}.status{font-size:10px}.login-shell{padding:28px 14px}.login-card{padding:23px 19px}.welcome h1{font-size:36px}.foot{align-items:flex-start;flex-direction:column}.foot .action{width:100%}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">DineFlow<span class="dot">.</span> <small>/ Kitchen</small></div>
+  <div class="header-right"><div class="status" id="connection">● Secure staff sign in</div><button class="logout hidden" id="headerLogout">Sign out</button></div>
+</header>
+
+<!-- Login is the only screen shown before Firebase confirms an authorized kitchen account. -->
+<section id="staffLogin" class="login-shell">
+  <div class="welcome">
+    <div class="eyebrow">Restaurant operations</div>
+    <h1>Great food.<br><span>Right on time.</span></h1>
+    <p>Welcome to the DineFlow Kitchen Display. Sign in with your authorized kitchen staff account to receive and manage live table orders.</p>
+    <div class="feature-list"><span class="feature">● Live order updates</span><span class="feature">● Kitchen status control</span><span class="feature">● Table-wise order view</span></div>
+  </div>
+  <div class="login-card">
+    <div class="eyebrow">Staff access</div>
+    <h2>Welcome back</h2>
+    <p class="sub">Sign in to open your kitchen dashboard.</p>
+    <form id="loginForm">
+      <div class="field"><label for="staffEmail">Work email</label><input id="staffEmail" type="email" placeholder="kitchen@dineflow.com" autocomplete="username" required></div>
+      <div class="field"><label for="staffPassword">Password</label><div class="input-wrap"><input class="password-input" id="staffPassword" type="password" placeholder="Enter your password" autocomplete="current-password" required><button class="toggle-pass" type="button" id="togglePassword">Show</button></div></div>
+      <div class="form-options"><label class="remember"><input type="checkbox" id="rememberMe" checked> Keep me signed in</label><button class="text-btn" type="button" id="forgotPassword">Forgot password?</button></div>
+      <button class="primary" id="signInBtn" type="submit">Sign in to Kitchen</button>
+      <div id="loginError" class="error" role="alert"></div><div id="loginSuccess" class="success" role="status"></div>
+    </form>
+    <p class="login-foot">Authorized DineFlow kitchen staff only · Your session is protected by Firebase.</p>
+  </div>
+</section>
+
+<!-- Do not show any order data until the authorized kitchen account is authenticated. -->
+<main id="kitchenApp" class="wrap hidden">
+  <div class="heading"><div><div class="eyebrow">Live operations</div><h1>Kitchen Display</h1><p class="muted">Incoming table orders · DineFlow Demo Hotel</p></div><div id="counts" class="muted">0 active · 0 total</div></div>
+  <div class="error-wide" id="error" role="alert"></div>
+  <nav class="filters" aria-label="Filter orders"><button class="active" data-filter="Active">Active orders</button><button data-filter="Pending">Pending</button><button data-filter="Preparing">Preparing</button><button data-filter="Ready">Ready</button><button data-filter="All">All orders</button></nav>
+  <section class="grid" id="orders"></section>
+  <p class="hint">Signed-in kitchen staff can update order status. Keep staff passwords private.</p>
+</main>
+
+<script>
+// Keep this configuration identical to the one used by the customer page.
+const firebaseConfig={apiKey:"AIzaSyA9Wj6J59tk89Ncxcw9NYU4OFVfWiM8Af0",authDomain:"dineflow-92f80.firebaseapp.com",projectId:"dineflow-92f80",storageBucket:"dineflow-92f80.firebasestorage.app",messagingSenderId:"22243613688",appId:"1:22243613688:web:74fee07ddaa0223738940d",measurementId:"G-SDQNWCT38B"};
+const allowedKitchenEmail='kitchen@dineflow.com';
+let db=null,auth=null,allOrders=[],filter='Active',unsubscribe=null,renderSession=0;
+const statuses=['Pending','Preparing','Ready','Served'];
+const $=id=>document.getElementById(id);
+
+try{
+  if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  db=firebase.firestore();auth=firebase.auth();
+  $('connection').textContent='● Restoring secure session…';
+  // Explicitly use LOCAL persistence so a refresh does not sign kitchen staff out.
+  // Attach the auth observer only after Firebase has restored the saved session.
+  auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(()=>{
+    $('connection').textContent='● Firebase connected';
+    auth.onAuthStateChanged(async user=>{
+      if(!user){showLogin();return;}
+      if((user.email||'').toLowerCase()!==allowedKitchenEmail){
+        await auth.signOut();showLogin();showLoginError('This account is not authorized for the Kitchen dashboard.');return;
+      }
+      startKitchen();
+    });
+  }).catch(e=>{
+    $('connection').textContent='● Session storage unavailable';
+    showLoginError('Could not restore the saved sign-in session: '+e.message+'. Please allow site data/cookies for 127.0.0.1 and try signing in again.');
+  });
+}catch(e){$('connection').textContent='● Connection issue';showLoginError('Firebase initialization failed: '+e.message);}
+
+function showLogin(){
+  if(unsubscribe){unsubscribe();unsubscribe=null;}
+  allOrders=[];$('orders').innerHTML='';$('kitchenApp').classList.add('hidden');$('staffLogin').classList.remove('hidden');$('headerLogout').classList.add('hidden');
+  $('connection').textContent='● Signed out';
+}
+function showLoginError(message){$('loginError').textContent=message;$('loginError').style.display='block';$('loginSuccess').style.display='none';}
+function clearLoginMessages(){$('loginError').style.display='none';$('loginSuccess').style.display='none';}
+function showAppError(message){$('error').textContent=message;$('error').style.display='block';}
+function startKitchen(){
+  if(!db||!auth.currentUser)return;
+  if((auth.currentUser.email||'').toLowerCase()!==allowedKitchenEmail){auth.signOut();return;}
+  $('staffLogin').classList.add('hidden');$('kitchenApp').classList.remove('hidden');$('headerLogout').classList.remove('hidden');$('connection').textContent='● LIVE · '+auth.currentUser.email;
+  if(unsubscribe)unsubscribe();
+  unsubscribe=db.collection('orders').where('restaurantId','==','dineflow-demo').onSnapshot(snapshot=>{
+    allOrders=snapshot.docs.map(doc=>({...doc.data(),id:doc.id})).sort((a,b)=>new Date(b.createdAt||0)-new Date(a.createdAt||0));render();
+  },err=>showAppError('Could not load live orders: '+err.message));
+}
+
+$('loginForm').addEventListener('submit',async event=>{
+  event.preventDefault();clearLoginMessages();
+  const email=$('staffEmail').value.trim().toLowerCase(),password=$('staffPassword').value,button=$('signInBtn');
+  if(email!==allowedKitchenEmail){showLoginError('Please use the authorized kitchen account: '+allowedKitchenEmail);return;}
+  button.disabled=true;button.textContent='Signing in…';
+  try{
+    const persistence=$('rememberMe').checked?firebase.auth.Auth.Persistence.LOCAL:firebase.auth.Auth.Persistence.SESSION;
+    await auth.setPersistence(persistence);
+    await auth.signInWithEmailAndPassword(email,password);
+    $('staffPassword').value='';
+    // onAuthStateChanged opens the dashboard after Firebase confirms the session.
+  }catch(err){
+    const messages={'auth/invalid-credential':'Email or password is incorrect. Please try again.','auth/user-not-found':'No kitchen account was found for this email.','auth/wrong-password':'Incorrect password. Please try again.','auth/too-many-requests':'Too many attempts. Please wait a little and try again.','auth/network-request-failed':'Network error. Check your internet connection.'};
+    showLoginError(messages[err.code]||err.message);
+  }finally{button.disabled=false;button.textContent='Sign in to Kitchen';}
+});
+
+$('togglePassword').addEventListener('click',()=>{const input=$('staffPassword'),show=input.type==='password';input.type=show?'text':'password';$('togglePassword').textContent=show?'Hide':'Show';});
+$('forgotPassword').addEventListener('click',async()=>{
+  clearLoginMessages();const email=$('staffEmail').value.trim().toLowerCase();
+  if(email!==allowedKitchenEmail){showLoginError('Enter the kitchen account email first: '+allowedKitchenEmail);return;}
+  try{await auth.sendPasswordResetEmail(email);$('loginSuccess').textContent='Password reset email sent. Check the inbox for '+email+'.';$('loginSuccess').style.display='block';}
+  catch(err){showLoginError(err.code==='auth/user-not-found'?'No account exists for this email.':err.message);}
+});
+async function signOutKitchen(){if(unsubscribe){unsubscribe();unsubscribe=null;}try{await auth.signOut();}finally{showLogin();}}
+$('headerLogout').addEventListener('click',signOutKitchen);
+
+document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{filter=button.dataset.filter;document.querySelectorAll('[data-filter]').forEach(item=>item.classList.toggle('active',item===button));render();}));
+function render(){
+  const active=allOrders.filter(order=>(Number(order.status)||0)<3).length;
+  $('counts').textContent=active+' active · '+allOrders.length+' total';
+  const rows=allOrders.filter(order=>filter==='All'||(filter==='Active'?(Number(order.status)||0)<3:statuses[Number(order.status)||0]===filter));
+  const root=$('orders');
+  if(!rows.length){root.innerHTML='<div class="empty">No orders in this view.<br><small>New customer orders will appear here automatically.</small></div>';return;}
+  root.innerHTML=rows.map(order=>{
+    const status=statuses[Number(order.status)||0]||'Pending';
+    const items=Array.isArray(order.items)?order.items:[];
+    const itemHtml=items.map(item=>`<div class="item"><b>${Number(item.qty)||1} × ${escapeHtml(item.name||'Item')}</b><span>₹${((Number(item.price)||0)*(Number(item.qty)||1)).toLocaleString('en-IN')}</span></div>`).join('');
+    const time=order.createdAt?new Date(order.createdAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'Time unavailable';
+    return `<article class="card"><div class="top"><div><div class="order">ORDER #${escapeHtml(order.id)}</div><div class="table">Table ${escapeHtml(order.table||'—')}</div><div class="muted" style="font-size:12px">${escapeHtml(order.guest?.name||'Guest')} · ${escapeHtml(order.guest?.phone||'')}</div></div><span class="pill ${status.toLowerCase()}">${status}</span></div><div class="items">${itemHtml||'<div class="muted">No item details</div>'}</div>${order.note?`<div class="note">Note: ${escapeHtml(order.note)}</div>`:''}<div class="foot"><div><b>₹${Number(order.total||0).toLocaleString('en-IN')}</b><div class="muted" style="font-size:11px">${escapeHtml(order.payment||'Pay at Counter')} · ${time}</div></div><button class="action" data-advance="${escapeHtml(order.id)}" ${Number(order.status)>=2?'disabled':''}>${Number(order.status)===0?'Start preparing':Number(order.status)===1?'Mark ready':Number(order.status)===2?'Ready · Waiting for waiter':'Served · Completed'}</button></div></article>`;
+  }).join('');
+  root.querySelectorAll('[data-advance]').forEach(button=>button.addEventListener('click',()=>advance(button.dataset.advance)));
+}
+async function advance(id){
+  const order=allOrders.find(item=>item.id===id);if(!order||Number(order.status)>=2)return;
+  try{await db.collection('orders').doc(id).update({status:Number(order.status||0)+1,statusLabel:statuses[Number(order.status||0)+1],updatedAt:new Date().toISOString()});}
+  catch(error){showAppError('Could not update order: '+error.message);}
+}
+function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));}
+</script>
+</body>
+</html>

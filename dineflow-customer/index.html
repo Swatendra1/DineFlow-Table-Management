@@ -1,0 +1,134 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DineFlow • Table Ordering</title><style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');:root{--green:#174e3d;--mint:#e5f1e9;--cream:#faf8f3;--ink:#202b25;--muted:#758078;--gold:#d2a34c}*{box-sizing:border-box}body{margin:0;background:var(--cream);font-family:'DM Sans',Arial,sans-serif;color:var(--ink)}button,input,textarea,select{font:inherit}button{cursor:pointer}header{background:#fff;border-bottom:1px solid #e8e9e3;position:sticky;top:0;z-index:3}.top{max-width:1080px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:16px 22px}.brand{font-family:'Playfair Display',serif;font-size:27px;color:var(--green);font-weight:700}.tag{font-size:12px;background:var(--mint);color:var(--green);padding:8px 12px;border-radius:20px;font-weight:700}.wrap{max-width:1080px;margin:auto;padding:26px 22px 100px}.hero{border-radius:24px;padding:42px 36px;background:linear-gradient(105deg,#143e32,#24634d);color:white;position:relative;overflow:hidden}.hero:after{content:'✦';position:absolute;right:6%;top:-60px;font-size:260px;opacity:.08}.eyebrow{letter-spacing:2px;text-transform:uppercase;font-size:11px;font-weight:700;color:#e6c889}.hero h1{font:700 42px 'Playfair Display',serif;margin:10px 0}.hero p{color:#d8e6dc;max-width:540px;line-height:1.6}.panel{background:#fff;border:1px solid #ecece6;border-radius:20px;padding:25px;box-shadow:0 10px 30px #1a39220a}.intro{max-width:540px;margin:28px auto}.intro h2,.section-title{font:700 29px 'Playfair Display',serif;margin:0 0 10px}.intro p,.muted{color:var(--muted)}label{display:block;font-weight:700;font-size:13px;margin:18px 0 7px}input,textarea,select{width:100%;padding:13px 15px;border:1px solid #dce3dc;border-radius:11px;outline-color:#2c7256;background:#fff}.btn{background:var(--green);color:white;border:0;padding:14px 20px;border-radius:12px;font-weight:700}.btn:hover{background:#23664d}.btn.alt{background:var(--mint);color:var(--green)}.btn.ghost{background:#fff;color:var(--green);border:1px solid #d5e4d8}.full{width:100%;margin-top:20px}.hidden{display:none!important}.toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:25px 0}.toolbar input{max-width:320px}.chips{display:flex;gap:8px;overflow:auto;padding:8px 0 20px}.chip{border:1px solid #dce7dd;background:white;border-radius:25px;padding:10px 18px;white-space:nowrap;font-weight:700;color:#596b5d}.chip.active{background:var(--green);color:#fff}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.food{background:white;border:1px solid #eee;border-radius:18px;overflow:hidden}.food .art{height:160px;display:grid;place-items:center;font-size:75px;background:linear-gradient(135deg,#f5e6cb,#e5f0e2)}.food .info{padding:18px}.food h3{margin:6px 0;font-size:18px}.food p{font-size:13px;color:var(--muted);min-height:38px;line-height:1.5}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.price{font-weight:800;color:var(--green)}.veg{color:#26834e;font-size:12px}.cartbar{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #eee;box-shadow:0 -8px 30px #12281914;z-index:4}.cartbar .top{padding:12px 22px}.cartlist{display:grid;gap:12px;margin:20px 0}.cartitem{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #eee;padding-bottom:14px}.qty{display:flex;align-items:center;gap:12px}.qty button{width:31px;height:31px;border-radius:9px;border:1px solid #c8ddce;background:#f2f8f3;color:var(--green);font-weight:800}.summary{background:#f4f8f4;border-radius:14px;padding:17px;margin-top:18px}.summary .row{margin:10px 0}.total{font-size:20px;font-weight:800;border-top:1px solid #d9e7da;padding-top:14px}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:24px 0}.step{text-align:center;font-size:12px;color:#9aa49b}.dot{height:34px;width:34px;margin:0 auto 8px;border-radius:50%;display:grid;place-items:center;background:#e8eee9;font-weight:800}.step.done{color:var(--green);font-weight:800}.step.done .dot{background:var(--green);color:white}.tracking{text-align:center;max-width:650px;margin:25px auto}.orderbadge{font-size:14px;color:var(--green);font-weight:800;background:var(--mint);display:inline-block;padding:9px 18px;border-radius:30px}.small{font-size:12px;color:var(--muted)}.back{border:0;background:none;color:var(--green);font-weight:700;padding:8px 0 20px}.toast{position:fixed;top:85px;right:18px;background:#193e30;color:#fff;border-radius:12px;padding:13px 18px;z-index:8;display:none}.demo{font-size:12px;color:#66756b;text-align:center;margin:22px 0}footer{text-align:center;color:#a0aaa0;padding:30px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:34px}}@media(max-width:560px){.wrap{padding:16px 14px 95px}.hero{padding:29px 23px}.hero h1{font-size:30px}.grid{grid-template-columns:1fr}.food{display:flex}.food .art{width:115px;min-width:115px;height:auto;font-size:55px}.food .info{padding:13px;flex:1}.food p{min-height:0}.steps{gap:2px}.step{font-size:10px}.panel{padding:18px}.toolbar input{max-width:100%}}
+</style><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head><body><header><div class="top"><div class="brand">DineFlow<span style="color:var(--gold)">.</span></div><span class="tag" id="tableTag">TABLE 01 · CONNECTING…</span></div></header><main class="wrap"><section class="hero"><span class="eyebrow">Welcome to your table</span><h1>Good food, great moments.</h1><p>Explore our chef's favourites, order from your table, and follow every step until your food arrives.</p></section>
+<div id="tableAvailability" class="panel hidden" style="margin-top:18px;border-left:5px solid #26834e;padding:14px 18px"></div>
+<section id="welcome" class="panel intro"><h2>Let's get started</h2><p>Just a few details and you're ready to order.</p><form id="guestForm"><label for="guestName">Your name</label><input id="guestName" placeholder="e.g. Rahul Sharma" required minlength="2" maxlength="70" autocomplete="name"><label for="guestPhone">Mobile number</label><input id="guestPhone" placeholder="10-digit mobile number" type="tel" inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10" required autocomplete="tel"><button class="btn full">Explore menu →</button></form><div class="demo" id="connectionNote">Connecting to restaurant order service…</div></section>
+<section id="menu" class="hidden"><div class="toolbar"><div><h2 class="section-title">Our Menu</h2><span class="muted" id="greeting"></span></div><input id="search" placeholder="🔎 Search dishes..." aria-label="Search menu"></div><div id="categories" class="chips"></div><div id="foods" class="grid"></div></section>
+<section id="cart" class="hidden"><button class="back" onclick="show('menu')">← Back to menu</button><h2 class="section-title">Your Cart</h2><div class="panel"><div id="cartItems" class="cartlist"></div><label for="note">Special instructions (optional)</label><textarea id="note" rows="3" placeholder="e.g. Less spicy, no onions"></textarea><div id="cartTotals" class="summary"></div><button class="btn full" id="checkoutBtn" onclick="show('checkout')">Continue to checkout →</button></div></section>
+<section id="checkout" class="hidden"><button class="back" onclick="show('cart')">← Back to cart</button><h2 class="section-title">Confirm your order</h2><div class="panel"><div id="checkoutDetails"></div><label for="payment">Payment method</label><select id="payment"><option value="Pay at Counter">Pay at Counter</option><option value="Online (Razorpay)">Pay Online (UPI / Card / Net Banking)</option></select><div id="checkoutTotals" class="summary"></div><button class="btn full" onclick="placeOrder()">Place order →</button><p class="small" id="paymentNote">Pay online securely with Razorpay, or choose Pay at Counter.</p></div></section>
+<section id="track" class="hidden"><div class="panel tracking"><div class="orderbadge" id="orderNumber"></div><h2 class="section-title" style="margin-top:20px">Your order is on its way!</h2><p class="muted" id="trackText"></p><div id="timeline" class="steps"></div><div class="summary" id="trackDetails"></div><p class="small" id="trackMode">Order status updates automatically when the kitchen changes it.</p><button class="btn alt" id="advanceBtn" onclick="advanceStatus()">Simulate next status →</button><button class="btn ghost" style="margin:10px" onclick="newOrder()">Order more food</button></div></section></main><div id="cartbar" class="cartbar hidden"><div class="top"><div><b id="cartCount">0 items</b><div class="price" id="cartAmount">₹0</div></div><button class="btn" onclick="show('cart')">View Cart →</button></div></div><div class="toast" id="toast"></div><footer>DineFlow · Made for memorable dining</footer>
+<script>
+// Paste your Firebase Web App config here. Leave placeholder values to use local demo mode.
+const firebaseConfig = {
+  apiKey: "AIzaSyA9Wj6J59tk89Ncxcw9NYU4OFVfWiM8Af0",
+  authDomain: "dineflow-92f80.firebaseapp.com",
+  projectId: "dineflow-92f80",
+  storageBucket: "dineflow-92f80.firebasestorage.app",
+  messagingSenderId: "22243613688",
+  appId: "1:22243613688:web:74fee07ddaa0223738940d",
+  measurementId: "G-SDQNWCT38B"
+};
+let db = null, auth = null, firebaseReady = false, orderUnsubscribe = null, anonymousUser = null;
+try {
+  if (firebaseConfig.apiKey !== "YOUR_API_KEY" && firebaseConfig.projectId !== "YOUR_PROJECT_ID" && window.firebase) {
+    firebase.initializeApp(firebaseConfig); db = firebase.firestore(); auth = firebase.auth(); firebaseReady = true;
+  }
+} catch (err) { console.error('Firebase setup:', err); }
+async function ensureGuestAuth(){ if(!firebaseReady) return null; if(auth.currentUser){ anonymousUser=auth.currentUser; return anonymousUser; } const result=await auth.signInAnonymously(); anonymousUser=result.user; return anonymousUser; }
+const defaultDishes=[['Paneer Tikka',249,'Starters','🧀','Smoky cottage cheese with mint chutney'],['Veg Spring Rolls',169,'Starters','🥟','Crispy rolls stuffed with fresh vegetables'],['Chilli Potato',189,'Starters','🥔','Sweet and spicy crispy potato bites'],['Paneer Butter Masala',299,'Main Course','🍛','Rich creamy tomato gravy with soft paneer'],['Dal Makhani',239,'Main Course','🥘','Slow-cooked black lentils and butter'],['Veg Biryani',259,'Main Course','🍚','Aromatic basmati rice with seasonal vegetables'],['Butter Naan',65,'Breads','🫓','Soft tandoor bread with butter'],['Tandoori Roti',35,'Breads','🥖','Whole wheat bread baked in tandoor'],['Masala Chai',59,'Beverages','☕','Freshly brewed Indian spiced tea'],['Fresh Lime Soda',89,'Beverages','🍹','Refreshing sweet or salted lime soda'],['Gulab Jamun',109,'Desserts','🍡','Warm syrup-soaked milk dumplings'],['Chocolate Brownie',169,'Desserts','🍫','Fudgy brownie with chocolate sauce']].map((d,i)=>({id:'sample-'+i,name:d[0],price:d[1],category:d[2],emoji:d[3],desc:d[4],available:true}));
+let dishes=[...defaultDishes];function dishById(id){return dishes.find(d=>String(d.id)===String(id));}
+async function loadCustomerMenu(){if(!firebaseReady)return;try{const snap=await db.collection('menuItems').where('restaurantId','==','dineflow-demo').get();if(!snap.empty){dishes=snap.docs.map(doc=>{const data=doc.data();return {id:doc.id,...data,desc:data.description||data.desc||'Freshly prepared by our kitchen',emoji:data.emoji||'🍽️'};}).filter(d=>d.available!==false).sort((a,b)=>(a.sortOrder||0)-(b.sortOrder||0));if(!dishes.length)dishes=[...defaultDishes];if(guest)renderMenu();}}catch(err){console.warn('Menu load failed; showing sample menu:',err.message);}}
+const table=(new URLSearchParams(location.search).get('table')||'01').replace(/[^a-zA-Z0-9-]/g,'').slice(0,12)||'01';document.getElementById('tableTag').textContent='TABLE '+table+(firebaseReady?' · LIVE':' · LOCAL DEMO');document.getElementById('connectionNote').textContent=firebaseReady?'Connected to live ordering. Your order will reach the kitchen.':'Local demo mode: add Firebase config to connect the kitchen.';let guest=JSON.parse(localStorage.getItem('df_guest_'+table)||'null'),cart={},active='All',order=null,tableDoc=null,tableUnsubscribe=null;const money=n=>'₹'+n.toLocaleString('en-IN');
+function showTableAvailability(message,blocked=false){const el=document.getElementById('tableAvailability');el.textContent=message;el.classList.remove('hidden');el.style.borderLeftColor=blocked?'#b42318':'#26834e';}
+function tableIsBlocked(){return !!(tableDoc&&tableDoc.reserved===true);}
+function applyTableBlock(){const blocked=tableIsBlocked();document.querySelectorAll('[data-add]').forEach(b=>{b.disabled=blocked;b.textContent=blocked?'Unavailable':' + Add';b.style.opacity=blocked?'.45':'1';b.style.cursor=blocked?'not-allowed':'pointer';});const checkout=document.getElementById('checkoutBtn');if(checkout){checkout.disabled=blocked;checkout.textContent=blocked?'Table unavailable':'Continue to checkout →';}if(blocked){cart={};updateBar();}}
+async function checkTableAvailability(){if(!firebaseReady)return {ok:true};try{const ref=db.collection('tables').doc(table);const snap=await ref.get();tableDoc=snap.exists?snap.data():null;if(tableDoc?.reserved===true){showTableAvailability('Table '+table+' is reserved. Please contact the restaurant staff for another table.',true);applyTableBlock();return {ok:false,reason:'This table is reserved. Please contact the waiter.'};}document.getElementById('tableAvailability').classList.add('hidden');applyTableBlock();return {ok:true};}catch(e){console.error('Table availability check:',e);toast('Could not verify table availability. Please try again.');return {ok:false,reason:'Table availability could not be checked. Please try again.'};}}
+function watchTableAvailability(){if(!firebaseReady||tableUnsubscribe)return;tableUnsubscribe=db.collection('tables').doc(table).onSnapshot(snap=>{tableDoc=snap.exists?snap.data():null;if(tableDoc?.reserved===true){showTableAvailability('Table '+table+' is reserved. Please contact the restaurant staff for another table.',true);applyTableBlock();}else{document.getElementById('tableAvailability').classList.add('hidden');applyTableBlock();if(guest&&!document.getElementById('menu').classList.contains('hidden'))renderMenu();}},err=>console.warn('Table live status:',err.message));}
+function toast(msg){const e=document.getElementById('toast');e.textContent=msg;e.style.display='block';setTimeout(()=>e.style.display='none',2200)}function show(page){if(['cart','checkout'].includes(page)&&!Object.keys(cart).length){toast('Add something delicious first!');return}for(const p of ['welcome','menu','cart','checkout','track'])document.getElementById(p).classList.toggle('hidden',p!==page);document.getElementById('cartbar').classList.toggle('hidden',page!=='menu'||!Object.keys(cart).length);if(page==='menu')renderMenu();if(page==='cart')renderCart();if(page==='checkout')renderCheckout();if(page==='track')renderTrack();scrollTo({top:0,behavior:'smooth'})}document.getElementById('guestForm').addEventListener('submit',async e=>{e.preventDefault();const go=e.submitter; if(go){go.disabled=true;go.textContent='Please wait…'} try{await ensureGuestAuth()}catch(err){toast('Guest sign-in failed: '+err.message);if(go){go.disabled=false;go.textContent='Explore menu →'}return} guest={name:document.getElementById('guestName').value.trim(),phone:document.getElementById('guestPhone').value.trim(),table};if(guest.name.length<2||! /^[6-9]\d{9}$/.test(guest.phone)){toast('Enter a valid name and Indian mobile number');return}guest.uid=anonymousUser?.uid||null;localStorage.setItem('df_guest_'+table,JSON.stringify(guest));if(go){go.disabled=false;go.textContent='Explore menu →'}show('menu')});function renderMenu(){document.getElementById('greeting').textContent='Hi '+guest.name+'! What would you like today?';document.getElementById('categories').innerHTML=['All',...new Set(dishes.map(d=>d.category))].map(c=>`<button class="chip ${active===c?'active':''}" data-cat="${c}">${c}</button>`).join('');document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{active=b.dataset.cat;renderMenu()});const q=document.getElementById('search').value.toLowerCase();document.getElementById('foods').innerHTML=dishes.filter(d=>(active==='All'||active===d.category)&&d.name.toLowerCase().includes(q)).map(d=>`<article class="food"><div class="art" aria-hidden="true">${d.emoji}</div><div class="info"><span class="veg">▣ VEG · ${d.category}</span><h3>${d.name}</h3><p>${d.desc||'Freshly prepared by our kitchen'}</p><div class="row"><span class="price">${money(d.price)}</span><button class="btn alt" data-add="${d.id}" ${tableIsBlocked()?'disabled':''}>${tableIsBlocked()?'Unavailable':'+ Add '+(cart[d.id]?'('+cart[d.id]+')':'')}</button></div></div></article>`).join('')||'<p>No dishes found.</p>';document.querySelectorAll('[data-add]').forEach(b=>b.onclick=async()=>{const availability=await checkTableAvailability();if(!availability.ok){toast(availability.reason);return;}cart[b.dataset.add]=(cart[b.dataset.add]||0)+1;updateBar();renderMenu();toast('Added to cart')});applyTableBlock();updateBar()}document.getElementById('search').oninput=renderMenu;function totals(){let subtotal=Object.entries(cart).reduce((s,[id,q])=>s+dishById(id).price*q,0);return{subtotal,tax:Math.round(subtotal*.05),total:subtotal+Math.round(subtotal*.05)}}function updateBar(){const count=Object.values(cart).reduce((a,b)=>a+b,0);document.getElementById('cartCount').textContent=count+' item'+(count!==1?'s':'');document.getElementById('cartAmount').textContent=money(totals().total);document.getElementById('cartbar').classList.toggle('hidden',!count||document.getElementById('menu').classList.contains('hidden'))}function renderCart(){document.getElementById('cartItems').innerHTML=Object.entries(cart).map(([id,q])=>`<div class="cartitem"><div><b>${dishById(id).name}</b><div class="price">${money(dishById(id).price*q)}</div></div><div class="qty"><button data-id="${id}" data-change="-1" aria-label="Decrease">−</button><b>${q}</b><button data-id="${id}" data-change="1" aria-label="Increase">+</button></div></div>`).join('');document.querySelectorAll('[data-change]').forEach(b=>b.onclick=()=>{const id=b.dataset.id;cart[id]+=Number(b.dataset.change);if(cart[id]<=0)delete cart[id];if(!Object.keys(cart).length){show('menu');return}renderCart()});document.getElementById('cartTotals').innerHTML=totalsHTML()}function totalsHTML(){let t=totals();return `<div class="row"><span>Subtotal</span><b>${money(t.subtotal)}</b></div><div class="row"><span>GST (demo 5%)</span><b>${money(t.tax)}</b></div><div class="row total"><span>Total</span><span>${money(t.total)}</span></div>`}function renderCheckout(){document.getElementById('checkoutDetails').innerHTML=`<h3>Table ${table}</h3><p class="muted">${guest.name} · ${guest.phone.replace(/\d(?=\d{4})/g,'•')}</p>`+Object.entries(cart).map(([id,q])=>`<div class="row" style="margin:10px 0"><span>${dishById(id).name} × ${q}</span><b>${money(dishById(id).price*q)}</b></div>`).join('');document.getElementById('checkoutTotals').innerHTML=totalsHTML()}async function placeOrder(){
+ if(!Object.keys(cart).length)return;
+ const availability=await checkTableAvailability();
+ if(!availability.ok){toast(availability.reason);return;}
+ const submit=document.querySelector('#checkout .btn.full');
+ const selectedPayment=document.getElementById('payment').value;
+ submit.disabled=true;submit.textContent=selectedPayment==='Online (Razorpay)'?'Starting secure payment…':'Placing order…';
+ try{
+   if(!firebaseReady||!auth.currentUser) await ensureGuestAuth();
+   if(selectedPayment==='Online (Razorpay)'){
+     const token=await auth.currentUser.getIdToken(true);
+     const response=await fetch('http://localhost:5000/create-order',{
+       method:'POST',
+       headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body: JSON.stringify({
+  amount: Math.round(totals().total * 100),
+  table,
+  guest: {
+    name: guest.name,
+    phone: guest.phone
+  },
+  items: Object.entries(cart).map(([id, qty]) => ({
+    id,
+    qty
+  })),
+  note: document.getElementById('note').value.slice(0, 300)
+})
+     });
+     const data=await response.json();
+     console.log("FULL BACKEND RESPONSE:", data);
+     console.log("Razorpay Debug:", {
+  keyReceived: Boolean(data.keyId),
+  amount: data.amount,
+  orderIdReceived: Boolean(data.razorpayOrderId)
+});
+     if(!response.ok||!data.success)throw new Error(data.message||'Could not start payment');
+     const options={
+       key:data.keyId,
+       amount:data.amount,
+       currency:data.currency,
+       name:'DineFlow',
+       description:'Restaurant order · Table '+table,
+       order_id:data.razorpayOrderId,
+       prefill:{name:guest.name,contact:guest.phone},
+       theme:{color:'#174e3d'},
+       handler:async function(paymentResult){
+         try{
+           const verifyToken=await auth.currentUser.getIdToken(true);
+           const verified=await fetch('http://localhost:5000/verify-payment',{
+             method:'POST',
+             headers:{'Content-Type':'application/json','Authorization':'Bearer '+verifyToken},
+             body:JSON.stringify({...paymentResult,pendingId:data.pendingId})
+           });
+           const result=await verified.json();
+           if(!verified.ok||!result.success)throw new Error(result.message||'Payment verification failed');
+           order={id:result.orderId,table,firebase:true};
+           cart={};
+           history.replaceState({},'','?table='+encodeURIComponent(table)+'&order='+encodeURIComponent(order.id));
+           submit.disabled=false;submit.textContent='Place order →';
+           show('track');
+           toast('Payment successful. Order confirmed!');
+         }catch(err){
+           console.error('Payment verification:',err);
+           toast('Payment verification is pending. Please contact the restaurant; do not pay again yet.');
+           submit.disabled=false;submit.textContent='Place order →';
+         }
+       },
+       modal:{ondismiss:function(){submit.disabled=false;submit.textContent='Place order →';toast('Payment window closed. No order was confirmed.');}}
+     };
+     const checkout=new Razorpay(options);
+     checkout.on('payment.failed',function(){submit.disabled=false;submit.textContent='Place order →';toast('Payment failed. Please try again.');});
+     checkout.open();
+     return;
+   }
+
+   order={id:'DF'+Date.now().toString().slice(-8),guest,table,items:Object.entries(cart).map(([id,q])=>({name:dishById(id).name,price:dishById(id).price,qty:q})),note:document.getElementById('note').value.slice(0,300),payment:'Pay at Counter',paymentStatus:'Pending',...totals(),status:0,statusLabel:'Pending',createdAt:new Date().toISOString(),restaurantId:'dineflow-demo',customerUid:anonymousUser?.uid||null};
+   if(firebaseReady){
+     if(!auth.currentUser)await ensureGuestAuth();
+     order.customerUid=auth.currentUser.uid;
+     await db.collection('orders').doc(order.id).set(order);
+     order.firebase=true;
+   }else{
+     localStorage.setItem('df_order_'+table,JSON.stringify(order));
+   }
+   cart={};
+   history.replaceState({},'','?table='+encodeURIComponent(table)+'&order='+encodeURIComponent(order.id));
+   submit.disabled=false;submit.textContent='Place order →';show('track');
+ }catch(err){
+   console.error(err);toast(err.message||'Could not place order. Please try again.');
+   submit.disabled=false;submit.textContent='Place order →';
+ }
+}
+function renderTrack(){if(!order)return;if(firebaseReady&&order.id&&!orderUnsubscribe){orderUnsubscribe=db.collection('orders').doc(order.id).onSnapshot(doc=>{if(doc.exists){order={...doc.data(),firebase:true};renderTrackUI();}},err=>console.error('Order tracking:',err));}renderTrackUI()}function renderTrackUI(){if(!order)return;let states=['Pending','Preparing','Ready','Served'];document.getElementById('orderNumber').textContent='ORDER #'+order.id;document.getElementById('trackText').textContent=['Your order has been received.','Our chefs are preparing your food.','Your food is ready to serve!','Enjoy your meal!'][order.status];document.getElementById('timeline').innerHTML=states.map((s,i)=>`<div class="step ${i<=order.status?'done':''}"><div class="dot">${i<=order.status?'✓':i+1}</div>${s}</div>`).join('');document.getElementById('trackDetails').innerHTML=`<div class="row"><span>Table</span><b>${order.table}</b></div><div class="row"><span>Payment</span><b>${order.payment}</b></div><div class="row"><span>Total</span><b>${money(order.total)}</b></div>`;document.getElementById('advanceBtn').classList.toggle('hidden',order.status===3||firebaseReady);document.getElementById('trackMode').textContent=firebaseReady?'Live updates from the kitchen are enabled.':'Local demo only: use the button to simulate kitchen updates.'}async function advanceStatus(){if(order&&order.status<3&&!firebaseReady){order.status++;order.statusLabel=['Pending','Preparing','Ready','Served'][order.status];localStorage.setItem('df_order_'+table,JSON.stringify(order));renderTrack();toast('Demo status updated')}}function newOrder(){history.replaceState({},'',location.pathname+'?table='+encodeURIComponent(table));document.getElementById('note').value='';show('menu')}if(firebaseReady){loadCustomerMenu();watchTableAvailability();checkTableAvailability();ensureGuestAuth().then(user=>{if(guest && !guest.uid){guest.uid=user.uid;localStorage.setItem('df_guest_'+table,JSON.stringify(guest));}}).catch(err=>{console.error(err);toast('Firebase guest sign-in unavailable')});}
+if(guest){const stored=JSON.parse(localStorage.getItem('df_order_'+table)||'null');if(stored&&new URLSearchParams(location.search).get('order')===stored.id){order=stored;show('track')}else if(firebaseReady&&new URLSearchParams(location.search).get('order')){order={id:new URLSearchParams(location.search).get('order'),table};show('track')}else show('menu')}else show('welcome');
+</script></body></html>
